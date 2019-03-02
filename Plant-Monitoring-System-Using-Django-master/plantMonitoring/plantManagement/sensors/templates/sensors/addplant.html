@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ADD PLANT</title>
+        <style>
+            body{ height: 560px; margin: 20px; padding: 10px; border: 2px solid #033371; border-radius: 15px; -moz-border-radius: 15px; -webkit-border-radius: 15px;background:url('https://www.themebeta.com/media/cache/728/files/chrome/images/201603/29/e825131e32e3b6977834af1bbc2385aa.jpeg');background-size: cover;background-attachment: fixed;color: white;}
+            p { display: table-row;}
+            label { margin-right: 40px; display: table-cell; width: 120px; }
+                input { margin-bottom: 5px; display: table-cell; padding:5px; border:1px solid #999;border-radius:4px; -moz-border-radius:4px;-web-kit-border-radius:4px;-khtml-border-radius:4px;
+                    }
+            button{ background-color: #bde2f9; font-weight: 600;}
+            table, th { border: 1px solid black; background-color: white;color: black;}
+            td{font-weight:heavy; width:160px; text-align: center;}
+            .b{ background-color: #99bbff; }
+
+
+        </style>
+        <script type="text/javascript" src="../tinymce/tinymce.min.js"></script>
+
+
+    </head>
+    <body>
+            <div><h2>ADD PLANT&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="{% url 'sensors:index' %}"><img src="https://cdn4.iconfinder.com/data/icons/unigrid-flat-basic/90/019_001_home_house_main_homepage-48.png"></a></h2><br>
+                <form name="firstform" id="firstform" method="post">
+                    <p id="p2">
+                        <label>Plant name</label><input type="text" name="plantname" id="plantname" size="35" value="" />
+                    </p><br>
+                    <p id="p3">
+                        <label>Latitude</label><input name="lat" id="lat" size="35" value="" />
+                    </p><br>
+                    <p id="p1">
+                        <label>Longitude</label><input name="long" id="long" size="35" value="" />
+                    </p><br>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<button class="buttone" type="submit">Submit</button>
+                </form><br><br>
+            </div>
+    </body>
+</html>

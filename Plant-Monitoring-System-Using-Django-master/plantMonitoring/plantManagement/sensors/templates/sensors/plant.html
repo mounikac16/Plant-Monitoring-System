@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<title>PLANT MONITORING SYSTEM</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<meta http-equiv="refresh" content="15">
+<style>
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+</style>
+<body class="w3-light-grey">
+
+
+
+<!-- Top container -->
+<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+  <!--<button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> &nbsp;Menu</button>-->
+  <span class="w3-bar-item w3-left">PLANT MONITORING SYSTEM</span>
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-black w3-animate-left" style="z-index:3;width:300px;" id="mySidebar">
+  <div class="w3-container w3-row">
+    <div class="w3-col s4">
+      <img src="https://cdn2.iconfinder.com/data/icons/snipicons/500/user-64.png" class="w3-circle w3-margin-right" style="width:80px">
+    </div>
+    <div class="w3-col s8 w3-bar">
+      <br><span> &nbsp;&nbsp;Welcome <strong><center>{{ username }} </center></strong></span><br>
+    </div>
+  </div>
+  <div class="w3-container">
+    <h5>Dashboard</h5>
+  </div>
+  <div class="w3-bar-block">
+    <a href="{% url 'sensors:index' %}" class="w3-bar-item w3-button w3-padding"><img src="https://cdn3.iconfinder.com/data/icons/tango-icon-library/48/go-home-32.png">&nbsp; HOME</a>
+    <a href="{% url 'sensors:weather' %}" class="w3-bar-item w3-button w3-padding"><img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/32/519842-54_Sun-32.png">&nbsp; WEATHER STATION</a>
+    <a href="{% url 'sensors:map' %}" class="w3-bar-item w3-button w3-padding"><img src="https://cdn1.iconfinder.com/data/icons/location-2/512/map-32.png">&nbsp; MAP</a>
+    <a href="{% url 'sensors:demo' %}" class="w3-bar-item w3-button w3-padding"><img src="https://cdn4.iconfinder.com/data/icons/flatron-set-2/512/movie-32.png">&nbsp; DEMO</a>
+    <a href="{% url 'sensors:about' %}" class="w3-bar-item w3-button w3-padding"><img src="https://cdn3.iconfinder.com/data/icons/musthave/32/Information.png">&nbsp; ABOUT US</a>
+    <a href="{% url 'login:home' %}" class="w3-bar-item w3-button w3-padding"><img src="https://cdn2.iconfinder.com/data/icons/flat-style-svg-icons-part-1/512/user_logout_man-32.png">&nbsp; LOGOUT</a>
+    <br><br>
+  </div>
+</nav>
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;background-color: #DCDCDC">
+
+  <!-- Header -->
+  <header class="w3-container" style="padding-top:0px">
+    <h5><b><i class="fa fa-dashboard"></i> Dashboard: Plant {{ pid }} - {{ plantName }}</b></h5>
+  </header>
+
+  <div class="w3-row-padding w3-margin-bottom">
+    <div class="w3-quarter" style="width : 33%;">
+      <div class="w3-container w3-red w3-padding-14">
+        <div class="w3-left"><img src="https://cdn2.iconfinder.com/data/icons/weather-color-2/500/weather-19-48.png"></div>
+        <div class="w3-right">
+          <h3 id="tempd"></h3>
+          <script type="text/javascript">
+         var h;
+          {% for i in temperature %}
+            { h= "{{ i }}" }
+          {% endfor %}
+      document.getElementById("tempd").innerHTML = h;
+        </script>
+        </div>
+        <div class="w3-clear"></div>
+        <a href="{% url 'sensors:temperature' %}"><h5>TEMPERATURE</h5></a>
+      </div>
+    </div>
+       <div class="w3-quarter" style="width : 33%">
+      <div class="w3-container w3-indigo w3-padding-14">
+        <div class="w3-left"><img src="https://cdn4.iconfinder.com/data/icons/weather-conditions/512/medium_rain-48.png"></div>
+        <div class="w3-right">
+        <h3 id="humidd"></h3>
+        <script type="text/javascript">
+          var h;
+          {% for t in humidity %}
+        { h= "{{ t }}" }
+      {% endfor %}
+      document.getElementById("humidd").innerHTML = h;
+        </script>
+        </div>
+        <div class="w3-clear"></div>
+        <a href="{% url 'sensors:humidity' %}"><h5>HUMIDITY</h5></a>
+      </div>
+    </div>
+     <div class="w3-quarter" style="width :33%">
+      <div class="w3-container w3-teal w3-padding-14">
+        <div class="w3-left"><img src="https://cdn3.iconfinder.com/data/icons/flat-icons-web/40/Rain-48.png"></div>
+        <div class="w3-right">
+         <h3 id="raind"></h3>
+          <script type="text/javascript">
+          var h;
+          {% for t in rainGauge %}
+        { h= "{{ t }}" }
+      {% endfor %}
+      document.getElementById("raind").innerHTML = h;
+        </script>
+        </div>
+        <div class="w3-clear"></div>
+        <a href="{% url 'sensors:rain' %}"><h5>RAIN LEVEL</h5></a>
+      </div>
+    </div>
+  </div><br>
+
+  <div class="w3-row-padding w3-margin-bottom">
+    <div class="w3-quarter" style="width : 33%">
+      <div class="w3-container w3-blue w3-padding-14">
+        <div class="w3-left"><img src="https://cdn1.iconfinder.com/data/icons/icons-for-a-site-1/64/advantage_eco_friendly-48.png"></div>
+        <div class="w3-right">
+          <h3 id="soild"></h3>
+        <script type="text/javascript">
+          var h;
+          {% for t in sM %}
+        { h = "{{ t.soilMoisture }}" }
+      {% endfor %}
+        var n = "";
+        var c = n.localeCompare(h); 
+        if (c == '0'){
+          h="Plant not monitored";
+        }
+      document.getElementById("soild").innerHTML = h;
+        </script>
+        </div>
+        <div class="w3-clear"></div>
+        <a href="sm/{{pid}}/"><h5>SOIL MOISTURE</h5></a>
+      </div>
+    </div>
+     <div class="w3-quarter" style="width : 33%">
+      <div class="w3-container w3-brown w3-text-white w3-padding-14">
+        <div class="w3-left"><img src="https://cdn2.iconfinder.com/data/icons/snipicons/500/battery-third-48.png" width="40px" height="40px"></div>
+        <div class="w3-right">
+          <h3 id="tankd"></h3>
+        <script type="text/javascript">
+          var h;
+          {% for t in overHeadTank %}
+        { h= "{{ t }}" }
+      {% endfor %}
+      document.getElementById("tankd").innerHTML = h;
+        </script>
+        </div>
+        <div class="w3-clear"></div>
+        <a href="{% url 'sensors:OHT' %}"><h5>TANK LEVEL</h5></a>
+      </div>
+    </div>
+    <div class="w3-quarter" style="width : 33%">
+      <div class="w3-container w3-orange w3-text-white w3-padding-14">
+        <div class="w3-left"><img src="https://cdn3.iconfinder.com/data/icons/colorful-electronic-parts/108/electronicparts-05-48.png"></div>
+        <div class="w3-right">
+          <h3 id="actuatord"></h3>
+            <script type="text/javascript">
+            var h1; //check for monitored
+            var h2; //check soil moisture reading
+            var h3; //check rain gauge reading
+            var h="ON";
+            {% for t in sM %}
+                h2= {{ t.soilMoisture }}
+            {% endfor %}
+            {% for t in rainGauge %}
+                h3 = {{ t }}
+            {% endfor %}
+            if ( h2 > 20 || h3 >= 10 ){
+               h="OFF";
+            }
+            {% for t in sM %}
+               { h1 = "{{ t.soilMoisture }}" }
+            {% endfor %}
+            var n = "";
+            var c = n.localeCompare(h1); 
+            if (c == '0'){
+              h="Plant not monitored";
+            }
+            document.getElementById("actuatord").innerHTML=h;
+            </script>
+        </div>
+        <div class="w3-clear"></div>
+        <h5><u>ACTUATOR STATE</u></h5>
+      </div>
+    </div>
+  </div>
+<div class="w3-panel">
+    <div class="w3-row-padding" style="margin:0 -16px">
+      <div class="w3-twothird">
+        <h3 style="color: black">&nbsp;&nbsp;GRAPHS</h3>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+<div id="container" style="width: 1180px; height: 400px; margin: 0 auto"></div>
+<script type="text/javascript">
+  Highcharts.chart('container', {
+    chart: {
+        type: 'areaspline'
+    },
+    title: {
+        text: 'Real Time Sensor Readings'
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'left',
+        verticalAlign: 'top',
+        x: 150,
+        y: 100,
+        floating: true,
+        borderWidth: 1,
+        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+    },
+    xAxis: {
+        categories: [
+            {% for i, j in tm %}
+               "{{ i }}{{ j }}" ,
+            {% endfor %}
+        ]
+    },
+    yAxis: {
+        title: {
+            text: 'Sensor Readings'
+        }
+    },
+    tooltip: {
+        shared: true,
+        valueSuffix: ' units'
+    },
+    credits: {
+        enabled: false
+    },
+    plotOptions: {
+        areaspline: {
+            fillOpacity: 0.3
+        }
+    },
+    series: [
+      {
+          name: 'Humidity',
+          data:[
+          {% for t in humidity %}
+              {{ t }},
+          {% endfor %}],
+      },
+      {
+          name: 'Temperature',
+          data:[
+          {% for i in temperature %}
+              {{ i }},
+          {% endfor %}],
+      },
+      {
+          name: 'Soil Moisture',
+          data:[
+          {% for t in sM %}
+              {{ t.soilMoisture }},
+          {% endfor %}],
+      },
+      {
+          name: 'Over Head Tank',
+          data:[
+          {% for t in overHeadTank %}
+              {{ t }},
+          {% endfor %}],
+      },
+      {
+          name: 'Rain Fall',
+          data:[
+          {% for t in rainGauge %}
+              {{ t }},
+          {% endfor %}],
+      }
+    ]
+});
+</script>
+      </div>
+    </div>
+  </div>
+  <hr>
+</div>
+
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+    if (mySidebar.style.display === 'block') {
+        mySidebar.style.display = 'none';
+        overlayBg.style.display = "none";
+    } else {
+        mySidebar.style.display = 'block';
+        overlayBg.style.display = "block";
+    }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+    overlayBg.style.display = "none";
+}
+</script>
+</body>
+</html>
+

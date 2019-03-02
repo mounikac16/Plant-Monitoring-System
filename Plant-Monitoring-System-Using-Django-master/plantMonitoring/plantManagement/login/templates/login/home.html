@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>HOME PAGE</title>
+<style >
+	body{
+		background: url('http://www.pptback.com/uploads/pot-plant-backgrounds-powerpoint.jpg');
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: black;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.button:hover {background-color:grey}
+
+.button:active {
+  background-color: grey;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+</style>
+</head>
+</html>
+<body>
+	<br><br>
+	<center>
+		<h1 style="color: #286d05">PLANT MONITORING SYSTEM USING IoT</h1>
+	
+<br/>
+  <a href="{% url 'login:login' %}"><button class="button">LOGIN</button></a><br><br><br><br>
+  <a href="{% url 'login:register' %}"><button class="button">REGISTER</button></a>
+</center>
+</center>
+</body>
