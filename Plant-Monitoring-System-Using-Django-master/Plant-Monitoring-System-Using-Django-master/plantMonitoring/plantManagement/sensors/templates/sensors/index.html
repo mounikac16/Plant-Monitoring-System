@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>PLANT MONITORING SYSTEM</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.navbar {
+    overflow: hidden;
+    background-color: #333;
+    font-family: Arial;
+    position: relative;
+}
+
+.navbar a {
+    float: left;
+    font-size: 16px;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.dropdown .dropbtn {
+    font-size: 16px;    
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+}
+
+
+
+.dropdown-content {
+    display: none;
+    position: relative;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    float: left;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    position: relative;
+}
+
+.dropdown-content a:hover {
+    background-color: #696969;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+#preloader {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    overflow: visible;
+    background: url('https://media.giphy.com/media/xTiTnsZ8v95BDWVHj2/giphy.gif') no-repeat center center;
+    background-color: #fff0e3;
+ }
+
+#content {
+    display: none;
+}
+
+  </style>
+</head>
+<body class="w3-light-grey">
+<div id="preloader"></div>
+<div id="content">
+<div class="navbar">
+  <div class="dropdown" style="width: 100%;">
+    <button class="dropbtn">PLANTS
+      <i class="fa fa-caret-down"></i>
+      &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;PLANT MONITORING SYSTEM
+      </button>
+    <div class="dropdown-content dropdown-toggle disabled">
+      {% for t in plantnum %}
+        <a href="display/{{t.pid}}/" style="color: white">Plant {{ t.pid }}  -  {{t.plantName}}</a>
+    {% endfor %}
+    <a href="{% url 'sensors:addplant' %}" style="color: white">ADD PLANT</a>
+    </div>
+
+  </div> 
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-black w3-animate-left" style="z-index:3;width:300px;position: absolute;" id="mySidebar">
+  <div class="w3-container w3-row">
+    <div class="w3-col s4">
+      <img src="https://cdn2.iconfinder.com/data/icons/snipicons/500/user-64.png" class="w3-circle w3-margin-right" style="width:80px">
+    </div>
+    <div class="w3-col s8 w3-bar">
+      <br><span> &nbsp;&nbsp;Welcome, <center><strong>{{ username }}</strong></center></span><br>
+    </div>
+  </div>
+  <div class="w3-container">
+    <h5>Dashboard</h5>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding w3-blue"><img src="https://cdn3.iconfinder.com/data/icons/tango-icon-library/48/go-home-32.png">&nbsp; HOME</a>
+    <a href="{% url 'sensors:weather' %}" class="w3-bar-item w3-button w3-padding"><img src="https://cdn2.iconfinder.com/data/icons/freecns-cumulus/32/519842-54_Sun-32.png">&nbsp; WEATHER STATION</a>
+    <a href="{% url 'sensors:map' %}" class="w3-bar-item w3-button w3-padding"><img src="https://cdn1.iconfinder.com/data/icons/location-2/512/map-32.png">&nbsp; MAP</a>
+   <a href="{% url 'sensors:demo' %}" class="w3-bar-item w3-button w3-padding"><img src="https://cdn4.iconfinder.com/data/icons/flatron-set-2/512/movie-32.png">&nbsp; DEMO</a>
+   <a href="{% url 'sensors:about' %}" class="w3-bar-item w3-button w3-padding"><img src="https://cdn3.iconfinder.com/data/icons/musthave/32/Information.png">&nbsp; ABOUT US</a>
+    <a href="{% url 'login:home' %}" class="w3-bar-item w3-button w3-padding"><img src="https://cdn2.iconfinder.com/data/icons/flat-style-svg-icons-part-1/512/user_logout_man-32.png">&nbsp; LOGOUT</a>
+    <br><br>
+  </div>
+</nav>
+
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer;position: absolute;" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div style="margin-left:300px;background-color: black;color: white;position: absolute;">
+  <!-- Header -->
+  <header class="w3-container" style="padding-top:0px">
+    <h4><i class="fa fa-dashboard"></i> WEB GIS BASED SOLUTION FOR PLANT WATER MANAGEMENT SYSTEM BASED ON IoT</h4>
+  </header>
+
+  <div  class="w3-container" style="background-color:#DCDCDC;color: black; ">
+      <h6 style="margin-left:30px;margin-right: 30px;height:650px;">
+          <b>The Internet plays a major role for internet of things which has been in great demand for the modernisation of many conventional methods. Deployment of IoT technology with the help of sensors and networks is present in almost every field and nowadays optimum sensors have been manufactured for the same. Smart plant water management system is possible with the help of IoT that includes applications in monitoring the flow of water to the plant, measuring the temperature, humidity, rainfall and soil moisture present, and accordingly regulating the water flow. Management of actuators and data analysis through observation from different parameters mentioned above using conventional methods for each user and plant requires extensive human labour and very keen observation. To overcome these factors, IoT which plays a major role in making the management efficient, has been incorporated into this project to manage the parameters smartly.<br>
+          The plant water management system based on IoT is constructed using techniques involving sensor network, wireless communication network, weather station, plant management information acquisition and remote monitoring data receiving integrated through both software and hardware. Once data is received, it is analysed and water flow is regulated accordingly. The plant location can be viewed online and the user can also add more plants and view their management and progress.
+          Through the well planned and logical execution, all resources are being utilised to their fullest extent. It provides a cost effient solution with methodical management of human labour and smart plant management. Water flow is well-regulated, without any wastage and thus each plant gets appropriate resources according their their own needs.</b><br>
+          <br><i><b><u>Group members:</u><br>
+          K Maheshwari, 201601037<br>
+          Parkhi Mohan, 201601061<br>
+          V S Pragna, 201601106<br>
+          Ch Mounika, 201611117<br>
+          K Sri Harshitha, 201611113<br>
+          M Dharani, 201601050</b></i><br>
+      </h6>
+  </div>
+  </div>
+  <script>
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+</script>
+
+<script>
+var preloader;
+
+function preload(opacity) {
+    if(opacity <= 0) {
+        showContent();
+    }
+    else {
+        preloader.style.opacity = opacity;
+        window.setTimeout(function() { preload(opacity - 0.05) }, 250);
+    }
+}
+
+function showContent() {
+    preloader.style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    preloader = document.getElementById('preloader');
+    preload(1);
+});
+</script>
+
+
+</div>
+</body>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</html>

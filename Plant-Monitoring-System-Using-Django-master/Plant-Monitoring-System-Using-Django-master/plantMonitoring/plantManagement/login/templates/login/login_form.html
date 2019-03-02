@@ -1,0 +1,47 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+<link href='https://fonts.googleapis.com/css?family=Satisfy' rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="{% static 'sensors/style.css' %}" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavBar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><img src="https://cdn2.iconfinder.com/data/icons/facebook-svg-icons-1/64/home-128.png" height="25" width="25"></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="topNavBar">
+            <ul class="nav navbar-nav">
+                <li class="">
+                    
+                </li>
+            </ul>
+
+
+        </div>
+
+    </div>
+</nav>
+
+
+
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+{% if reg %}
+<form class="form-horizontal" role="form" action="{% url 'login:login' %}" method="post" enctype="multipart/form-data">
+    {% else %}
+    <form class="form-horizontal" role="form" action="{% url 'login:login' %}" method="post" enctype="multipart/form-data">
+        {% endif %}
+        {% csrf_token %}
+        {% include 'login/form_template.html' %}
+
+    </form>
+</form>
+<!--http://10.0.3.23:8005/sensors/login/-->
